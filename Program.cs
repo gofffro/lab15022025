@@ -65,6 +65,10 @@ namespace ConsoleApp
             Console.WriteLine($"Вывод: {number}^{powerNum} = {MultipleNumber(number, powerNum)}");
             return true;
         }
+        static bool secondProgram()
+        {
+            return true;
+        }
 
         static long MultipleNumber(long number, int powerNum)
         {
@@ -78,7 +82,35 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            firstProgram();
+            byte menuChoice = byte.MaxValue;
+            while (menuChoice != 3)
+            {
+                Console.WriteLine("[1] Первая программа [2] Вторая программа [3] Выйти");
+                Console.Write("Ввод меню: ");
+                try
+                {
+                    menuChoice = Convert.ToByte(Console.ReadLine());
+                    if (menuChoice == 0 || menuChoice > 3)
+                    {
+                        throw new Exception("Введите число от 1 до 3");
+                    }
+                    switch (menuChoice)
+                    {
+                        case 1:
+                            firstProgram();
+                            break;
+                        case 2:
+                            secondProgram();
+                            break;
+                        case 3:
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка! {ex.Message}");
+                }
+            }
         }
     }
 }
