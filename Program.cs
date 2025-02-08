@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 
 namespace ConsoleApp
 {
@@ -12,6 +13,11 @@ namespace ConsoleApp
         class numberLessZero : Exception
         {
             public numberLessZero(string message) : base(message) { }
+        }
+
+        class numberLessOneHundred : Exception
+        {
+            public numberLessOneHundred(string message) : base(message) { }
         }
         static bool firstProgram()
         {
@@ -67,6 +73,35 @@ namespace ConsoleApp
         }
         static bool secondProgram()
         {
+            long numberResult;
+            while (true)
+            {
+                Console.Write("Введите число x (x должно быть >= 100): ");
+                try
+                {
+                    long input = Convert.ToInt64(Console.ReadLine());
+                    if (input < 100)
+                    {
+                        throw new numberLessOneHundred("x должно быть >= 100");
+                    }
+                    string strInput = input.ToString();
+                    char secondDigit = strInput[1];
+                    string strMod = strInput.Remove(1, 1);
+                    string strResult = strMod + secondDigit;
+                    numberResult = long.Parse(strResult);
+                    break;
+                }
+                catch (numberLessOneHundred e)
+                {
+                    Console.WriteLine($"Ошибка! {e.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка! {ex.Message}");
+                }
+            }
+
+            Console.WriteLine($"Результат: {numberResult}");
             return true;
         }
 
